@@ -14,13 +14,19 @@ import java.util.List;
 public class TakeFrame extends Frame {
 
 	// 坦克进行了封装，需要一个坦克就new一个就行了
-	Tank myTank = new Tank(200, 200, Dir.DOWN ,this);
+	Tank myTank = new Tank(200, 600, Dir.DOWN, Group.GOOD,this);
 	//new一个子弹
-	Bullet bullet = new Bullet(200, 200, Dir.DOWN,this);
+//	Bullet bullet = new Bullet(200, 200, Dir.DOWN, this);
 	//设置游戏的界面大小，让其保持不变
-	static final int GAME_WIDTH = 1000, GAME_HEIGHT = 800;
+	static final int GAME_WIDTH = 1080, GAME_HEIGHT = 760;
 	//创建一个链表，专门装子弹
 	List<Bullet> bullets = new ArrayList<>();
+	//创建一个装敌方坦克的链表
+	List<Tank> tanks = new ArrayList<>();
+	//创建一个装爆炸效果的链表
+	List<Expload> exploads = new ArrayList<>();
+	//new一个爆炸效果测试
+//	Expload e = new Expload(200, 300, this);
 	public TakeFrame() {
 		// 设置窗口大小
 		setSize(GAME_WIDTH, GAME_HEIGHT);
@@ -67,6 +73,8 @@ public class TakeFrame extends Frame {
 		Color c = g.getColor();
 		g.setColor(Color.WHITE);
 		g.drawString("子弹的数量："+bullets.size(), 10, 60);
+		g.drawString("敌方坦克的数量："+tanks.size(), 10, 80);
+		g.drawString("爆炸的数量："+exploads.size(), 10, 100);
 		g.setColor(c);
 		
 		myTank.paint(g);
@@ -77,8 +85,25 @@ public class TakeFrame extends Frame {
 			//这就涉及到集合一个很经典的报错了，详细见笔记第11章集合中ListIterator迭代器这一小节
 			bullets.get(i).paint(g);
 		}
+		for (int i = 0; i < tanks.size(); i++) {
+			//画出坦克
+			tanks.get(i).paint(g);
+		}
+		for (int i = 0; i < exploads.size(); i++) {
+			//画出爆炸效果
+			exploads.get(i).paint(g);
+		}
+		//将子弹与坦克进行比较，看是否发生碰撞，如果发生则将对应的子弹与坦克删除
+		for (int i = 0; i < bullets.size(); i++) {
+			for (int j = 0; j < tanks.size(); j++) {
+				//创建一个collideWith碰撞检测方法，看是否会碰撞上
+				bullets.get(i).collideWith(tanks.get(j));
+			}
+			
+		}
 	}
 
+	
 	// 创建一个内部类，专门接收键盘的监听
 	class MyKeyListener extends KeyAdapter {
 		boolean bL = false;// 左
@@ -144,7 +169,7 @@ public class TakeFrame extends Frame {
 		}
 
 		private void setMainTankDir() {
-			if (!bL && !bU && !bR && !bD)// 
+			if (!bL && !bU && !bR && !bD)//都为false说明此时按键没有被触动
 				myTank.setMoving(false);
 			else {
 				myTank.setMoving(true);
