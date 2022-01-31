@@ -18,7 +18,7 @@ public class TakeFrame extends Frame {
 	//new一个子弹
 //	Bullet bullet = new Bullet(200, 200, Dir.DOWN, this);
 	//设置游戏的界面大小，让其保持不变
-	static final int GAME_WIDTH = 1080, GAME_HEIGHT = 760;
+	static final int GAME_WIDTH = PropertyMgr.getInt("gameWidth"), GAME_HEIGHT = PropertyMgr.getInt("gameHight");
 	//创建一个链表，专门装子弹
 	List<Bullet> bullets = new ArrayList<>();
 	//创建一个装敌方坦克的链表

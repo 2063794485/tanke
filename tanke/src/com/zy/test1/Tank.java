@@ -10,7 +10,7 @@ public class Tank {// 对坦克进行封装
 	// 获取坦克方向
 	private Dir dir = Dir.DOWN;
 	// 坦克每次移动的距离，设置为10
-	private static final int SPEED = 5;
+	private static final int SPEED = PropertyMgr.getInt("tankSpeed");
 	// 定义一个让坦克静止的变量
 	private boolean moving = true;
 	//定义坦克是否存活的变量,默认是存活状态，设为true

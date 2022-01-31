@@ -1,0 +1,9 @@
+#敌方坦克的数量
+initTankCount=10
+#坦克的移动速度
+tankSpeed=5
+#子弹的移动速度
+bulletSpeed=10
+#游戏界面的大小
+gameWidth=1080
+gameHight=760

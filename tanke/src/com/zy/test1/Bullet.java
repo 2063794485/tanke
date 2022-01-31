@@ -9,7 +9,7 @@ import javax.imageio.ImageIO;
 public class Bullet {// 子弹类
 	// 子弹需要：速度，位置，大小，方向
 //	private static final int SPEED = 10, WIDTH = 20, HEIGHT = 20;// 速度，宽，高
-	private static final int SPEED = 10;
+	private static final int SPEED = PropertyMgr.getInt("bulletSpeed");;
 	public static int WIDTH = ResourceMgr.bulletD.getWidth();
 	public static int HEIGHT = ResourceMgr.bulletD.getHeight();
 	private int x, y;// 子弹的位置坐标
